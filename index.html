@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Twój Gabinet | Spokojna, nowoczesna stomatologia · strona pokazowa</title>
+<meta name="description" content="Pokazowa strona gabinetu stomatologicznego: umawianie wizyt online, usługi od profilaktyki po implanty, opinie, FAQ. Taka strona może być Twoja.">
+<meta property="og:title" content="Twój Gabinet | strona pokazowa dla gabinetu stomatologicznego">
+<meta property="og:description" content="Spokojna, nowoczesna stomatologia: umawianie wizyt online, usługi, opinie, FAQ. Taka strona może być Twoja.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://vasilyanaptyp-oss.github.io/stomatologia-demo-concept/">
+<meta property="og:locale" content="pl_PL">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%232b5bd7'/%3E%3Cpath d='M32 15c-4.6-3.8-11-4.4-15-1.2s-5 9-2.9 15.6c1.6 5.1 1.9 10.4 2.8 15.9.6 3.5 1.6 6.2 4.2 6.2 2.9 0 3.1-4.2 3.7-8.3.5-3.2 1.7-5.3 3.5-5.3s2.9 2.1 3.4 5.3c.6 4.1.9 8.3 3.8 8.3 2.6 0 3.6-2.7 4.2-6.2.9-5.5 1.2-10.8 2.8-15.9 2.1-6.6 1.1-12.4-2.9-15.6-1.5-1.2-2.4-.8-3.6-1.6-1.1-.7-2-1.6-4-.2z' fill='%23ffffff'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#f6f8fc;
+    --surface:#ffffff;
+    --ink:#0e1a2b;
+    --muted:#46586e;
+    --accent:#2b5bd7;
+    --accent-deep:#1e44ad;
+    --accent-ink:#1c3f9e;
+    --accent-soft:#e8eefb;
+    --accent-softer:#f1f5fd;
+    --line:#dce4f0;
+    --dark:#0f1c36;
+    --dark-2:#16264a;
+    --dark-text:#c3cde2;
+    --ok:#177245;
+    --err:#b3261e;
+    --radius-karta:20px;
+    --radius-wew:14px;
+    --radius-pole:10px;
+    --cien:0 18px 44px rgba(23,50,120,.10);
+    --cien-miekki:0 8px 22px rgba(23,50,120,.08);
+    --jedn:8px;
+    --font:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+    --przej:300ms cubic-bezier(.22,.61,.21,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{transition-duration:.01ms !important;animation-duration:.01ms !important;animation-iteration-count:1 !important}
+  }
+  body{
+    font-family:var(--font);
+    background:var(--bg);
+    color:var(--ink);
+    font-size:16.5px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .kontener{max-width:1180px;margin:0 auto;padding:0 24px}
+  a{color:var(--accent-ink)}
+  h1,h2,h3{line-height:1.14;letter-spacing:-.018em;font-weight:750}
+  h1{font-size:clamp(2.15rem,5vw,3.7rem)}
+  h2{font-size:clamp(1.6rem,3.1vw,2.3rem)}
+  h3{font-size:1.12rem;letter-spacing:-.01em}
+  p{max-width:62ch}
+  :focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+  section{scroll-margin-top:84px}
+  .faq-pytanie,.chip,.krok,form input,form textarea,form button{scroll-margin-top:96px}
+
+  /* ===== pasek pokazu ===== */
+  .pasek-pokazu{background:var(--accent-soft);border-bottom:1px solid var(--line)}
+  .pasek-pokazu .kontener{
+    display:flex;align-items:center;justify-content:center;gap:12px;
+    min-height:44px;flex-wrap:wrap;padding-top:6px;padding-bottom:6px;
+    font-size:.83rem;color:var(--accent-ink);text-align:center;
+  }
+  .znacznik-pokazu{
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--accent);color:#fff;border-radius:999px;
+    padding:3px 12px;font-weight:700;font-size:.72rem;
+    letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;
+  }
+  .pasek-pokazu a{font-weight:600;white-space:nowrap}
+  .krotki-tekst{display:none}
+
+  /* ===== nagłówek ===== */
+  header{
+    position:sticky;top:0;z-index:60;
+    background:rgba(246,248,252,.9);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .pasek{display:flex;align-items:center;gap:24px;height:68px}
+  .logo{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink);margin-right:auto}
+  .logo-znak{
+    width:40px;height:40px;border-radius:12px;flex:none;
+    display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-deep) 100%);
+    box-shadow:0 6px 14px rgba(30,68,173,.28);
+  }
+  .logo-nazwa{font-size:1.06rem;font-weight:750;letter-spacing:-.01em;line-height:1.1}
+  .logo-nazwa small{display:block;font-size:.68rem;font-weight:600;color:var(--muted);letter-spacing:.05em}
+  nav.glowna{display:flex;align-items:center;gap:26px}
+  nav.glowna a{color:var(--ink);text-decoration:none;font-size:.95rem;font-weight:600;padding:6px 2px;border-radius:6px;transition:color var(--przej)}
+  nav.glowna a:hover{color:var(--accent-ink)}
+  .przycisk{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    min-height:48px;padding:12px 26px;border-radius:999px;
+    font-family:inherit;font-weight:650;font-size:1rem;text-decoration:none;
+    border:none;cursor:pointer;
+    transition:background var(--przej),transform 160ms cubic-bezier(.22,.61,.21,1),box-shadow var(--przej),color var(--przej);
+  }
+  .przycisk:active{transform:scale(.98)}
+  .przycisk svg{flex:none}
+  .przycisk-glowny{background:var(--accent);color:#fff;box-shadow:0 10px 24px rgba(43,91,215,.30)}
+  .przycisk-glowny:hover{background:var(--accent-deep)}
+  .przycisk-drugi{background:transparent;color:var(--accent-ink);box-shadow:inset 0 0 0 1.5px var(--accent)}
+  .przycisk-drugi:hover{background:var(--accent-softer)}
+  .przycisk-maly{min-height:42px;padding:8px 20px;font-size:.92rem}
+  .przycisk[aria-disabled="true"]{opacity:.55;cursor:not-allowed;box-shadow:none}
+  .karta-podpowiedz{font-size:.85rem;color:var(--accent-ink);margin-top:10px;font-weight:600}
+  .hamburger{
+    display:none;width:48px;height:48px;border:none;border-radius:12px;
+    background:var(--accent-softer);cursor:pointer;position:relative;flex:none;
+  }
+  .hamburger span{
+    position:absolute;left:14px;width:20px;height:2px;border-radius:2px;
+    background:var(--ink);transition:transform 260ms cubic-bezier(.22,.61,.21,1),opacity 200ms ease;
+  }
+  .hamburger span:first-child{top:19px}
+  .hamburger span:last-child{bottom:19px}
+  .hamburger[aria-expanded="true"] span:first-child{transform:translateY(4px) rotate(45deg)}
+  .hamburger[aria-expanded="true"] span:last-child{transform:translateY(-4px) rotate(-45deg)}
+  .menu-mobilne{
+    display:none;position:absolute;top:100%;left:0;right:0;
+    max-height:calc(100dvh - 68px);overflow-y:auto;
+    background:rgba(246,248,252,.97);
+    backdrop-filter:blur(14px);
+    padding:24px 24px 32px;gap:8px;
+    border-bottom:1px solid var(--line);
+    box-shadow:0 24px 44px rgba(23,50,120,.14);
+  }
+
+  /* ===== hero ===== */
+  .hero{position:relative;overflow:hidden}
+  .hero-tlo{position:absolute;inset:0;pointer-events:none}
+  .hero-tlo::before{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(560px 420px at 12% -6%,rgba(43,91,215,.13),transparent 65%),
+      radial-gradient(480px 420px at 96% 14%,rgba(43,91,215,.10),transparent 62%),
+      radial-gradient(1.6px 1.6px at 50% 50%,rgba(14,26,43,.10) 55%,transparent 56%);
+    background-size:auto,auto,26px 26px;
+  }
+  .hero-siatka{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);gap:64px;align-items:center;padding-top:88px;padding-bottom:96px}
+  .hero-lead{font-size:1.13rem;color:var(--muted);margin:20px 0 32px}
+  .hero-akcje{display:flex;gap:14px;flex-wrap:wrap}
+
+  /* karta rezerwacji: podwójna ramka */
+  .karta-otoczka{
+    background:rgba(14,26,43,.045);
+    border:1px solid rgba(14,26,43,.06);
+    border-radius:calc(var(--radius-karta) + 6px);
+    padding:10px;
+    box-shadow:var(--cien);
+  }
+  .karta-rezerwacji{
+    background:var(--surface);border-radius:var(--radius-karta);
+    padding:28px;position:relative;overflow:hidden;
+  }
+  .karta-rezerwacji::before{
+    content:"";position:absolute;inset:0 0 auto 0;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.9),transparent);
+    box-shadow:inset 0 1px 2px rgba(255,255,255,.65);
+    pointer-events:none;
+  }
+  .karta-rezerwacji > p.krok-naglowek{font-size:1.22rem;font-weight:750;letter-spacing:-.015em}
+  .karta-rezerwacji .krok-opis{color:var(--muted);font-size:.93rem;margin:4px 0 20px}
+  .grupa-chipow{margin-bottom:16px}
+  .etykieta-grupy{font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px}
+  .chipy{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{
+    min-height:44px;padding:9px 16px;border-radius:999px;
+    background:var(--surface);border:1.5px solid var(--line);
+    font-family:inherit;font-size:.92rem;font-weight:600;color:var(--ink);
+    cursor:pointer;transition:all 200ms cubic-bezier(.22,.61,.21,1);
+  }
+  .chip:hover{border-color:var(--accent);color:var(--accent-ink)}
+  .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 6px 14px rgba(43,91,215,.25)}
+  .potwierdzenie{
+    display:none;margin-top:20px;padding:18px;border-radius:var(--radius-wew);
+    background:var(--accent-soft);border:1px solid var(--line);
+  }
+  .potwierdzenie p:first-child{font-weight:700;color:var(--ink)}
+  .potwierdzenie p{font-size:.95rem}
+  .potwierdzenie .notka{color:var(--muted);font-size:.85rem;margin-top:6px}
+  .ikona-ok{
+    display:inline-grid;place-items:center;width:28px;height:28px;border-radius:999px;
+    background:#d8f0e2;color:var(--ok);margin-right:9px;vertical-align:-8px;
+  }
+  .karta-notka{margin-top:18px;font-size:.85rem;color:var(--muted)}
+
+  /* ===== sekcje ===== */
+  .sekcja{padding:104px 0}
+  .sekcja-naglowek{max-width:640px;margin-bottom:56px}
+  .sekcja-naglowek h2{margin-bottom:14px}
+  .sekcja-naglowek p{color:var(--muted);font-size:1.05rem}
+
+  /* bento usług */
+  .bento{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:minmax(150px,auto);gap:16px}
+  .komorka{
+    background:var(--surface);border-radius:var(--radius-karta);
+    padding:26px;box-shadow:var(--cien-miekki);
+    display:flex;flex-direction:column;gap:12px;
+    transition:transform 220ms cubic-bezier(.22,.61,.21,1),box-shadow 220ms ease;
+  }
+  .komorka:hover{transform:translateY(-4px);box-shadow:var(--cien)}
+  .komorka p{font-size:.95rem;color:var(--muted)}
+  .ikona-uslugi{
+    width:46px;height:46px;border-radius:13px;flex:none;
+    display:grid;place-items:center;
+    background:var(--accent-softer);color:var(--accent-ink);
+  }
+  .komorka-f{
+    grid-column:span 2;grid-row:span 2;justify-content:flex-end;position:relative;overflow:hidden;
+    background:linear-gradient(150deg,#eef3fd 0%,#dde8fa 55%,#cfdcf6 100%);
+  }
+  .komorka-f::after{
+    content:"";position:absolute;inset:auto -70px -90px auto;width:290px;height:290px;border-radius:999px;
+    background:radial-gradient(circle at 35% 30%,rgba(43,91,215,.22),rgba(43,91,215,0) 68%);
+  }
+  .komorka-f .ikona-uslugi{background:var(--accent);color:#fff;width:54px;height:54px}
+  .komorka-f h3{font-size:1.5rem}
+  .komorka-f p{font-size:1.02rem;max-width:34ch;position:relative;z-index:1}
+  .komorka-f .numerek{
+    position:absolute;top:18px;right:24px;z-index:1;
+    font-size:.78rem;font-weight:700;letter-spacing:.12em;color:var(--accent-ink);
+    background:rgba(255,255,255,.7);border-radius:999px;padding:5px 12px;
+  }
+  .komorka-d{grid-row:span 2;background:var(--dark);color:#fff;justify-content:flex-end}
+  .komorka-d .ikona-uslugi{background:rgba(255,255,255,.12);color:#dbe5f7}
+  .komorka-d p{color:var(--dark-text)}
+  .komorka-e{background:var(--accent-softer)}
+
+  /* kroki pierwszej wizyty */
+  .kroki{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;position:relative}
+  .kroki::before{
+    content:"";position:absolute;top:53px;left:5%;right:5%;height:1.5px;
+    background:linear-gradient(90deg,transparent,var(--line) 14%,var(--accent) 50%,var(--line) 86%,transparent);
+  }
+  .krok{position:relative;padding-top:20px}
+  .krok-numer{
+    width:68px;height:68px;border-radius:999px;background:var(--surface);
+    border:1.5px solid var(--line);display:grid;place-items:center;
+    font-weight:800;font-size:1.35rem;color:var(--accent-ink);
+    box-shadow:var(--cien-miekki);margin-bottom:20px;position:relative;z-index:1;
+  }
+  .krok h3{font-size:1.25rem;margin-bottom:10px}
+  .krok p{color:var(--muted);font-size:.98rem}
+
+  /* opinie */
+  .opinie{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
+  .opinia{
+    background:var(--surface);border-radius:var(--radius-karta);
+    padding:28px;box-shadow:var(--cien-miekki);
+    display:flex;flex-direction:column;gap:18px;
+  }
+  .opinia:nth-child(2){transform:translateY(24px)}
+  .opinia blockquote{font-size:1.06rem;line-height:1.5;color:var(--ink);font-weight:500}
+  .opinia footer{color:var(--muted);font-size:.9rem}
+  .opinia footer strong{color:var(--ink);font-weight:650}
+  .opinia:nth-child(2) footer::after{content:" · opinia przykładowa"}
+  .cytat-znak{color:var(--accent);font-size:1.5rem;line-height:1;font-weight:800}
+  .opinie-notka{margin-top:48px;font-size:.85rem;color:var(--muted)}
+
+  /* FAQ */
+  .faq{max-width:760px}
+  .faq-element{border-bottom:1px solid var(--line)}
+  .faq-pytanie{
+    width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;
+    min-height:64px;padding:18px 4px;background:none;border:none;cursor:pointer;
+    font-family:inherit;font-size:1.08rem;font-weight:650;color:var(--ink);text-align:left;
+    transition:color 200ms ease;
+  }
+  .faq-pytanie:hover{color:var(--accent-ink)}
+  .faq-strzalka{
+    width:34px;height:34px;border-radius:999px;flex:none;
+    display:grid;place-items:center;background:var(--accent-softer);color:var(--accent-ink);
+    transition:transform 260ms cubic-bezier(.22,.61,.21,1),background 200ms ease;
+  }
+  .faq-pytanie[aria-expanded="true"] .faq-strzalka{transform:rotate(180deg);background:var(--accent);color:#fff}
+  .faq-odpowiedz{
+    display:grid;grid-template-rows:0fr;transition:grid-template-rows 280ms cubic-bezier(.22,.61,.21,1);
+  }
+  .faq-odpowiedz > div{overflow:hidden}
+  .faq-odpowiedz p{color:var(--muted);padding:0 4px 20px;max-width:60ch}
+  .faq-element.otwarty .faq-odpowiedz{grid-template-rows:1fr}
+
+  /* kontakt */
+  .kontakt-siatka{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:20px;align-items:stretch}
+  .dane-karta{
+    background:var(--dark);color:#fff;border-radius:var(--radius-karta);
+    padding:36px;display:flex;flex-direction:column;gap:26px;
+  }
+  .dane-karta > p:first-child{font-size:1.3rem;font-weight:750}
+  .dane-pozycja{display:flex;gap:14px;align-items:flex-start}
+  .dane-pozycja .ikona-uslugi{background:rgba(255,255,255,.12);color:#dbe5f7;width:42px;height:42px}
+  .dane-pozycja p{font-size:.95rem;color:var(--dark-text)}
+  .dane-pozycja strong{display:block;color:#fff;font-weight:650;font-size:1rem}
+  .dane-pozycja a{color:#fff}
+  .formularz-karta{
+    background:var(--surface);border-radius:var(--radius-karta);
+    padding:36px;box-shadow:var(--cien-miekki);
+  }
+  .pole{display:flex;flex-direction:column;gap:7px;margin-bottom:18px}
+  .pole label{font-size:.9rem;font-weight:650}
+  .pole input,.pole textarea{
+    font-family:inherit;font-size:1rem;color:var(--ink);
+    background:var(--bg);border:1.5px solid var(--line);border-radius:var(--radius-pole);
+    padding:13px 15px;min-height:48px;transition:border-color 200ms ease,box-shadow 200ms ease;
+  }
+  .pole textarea{min-height:110px;resize:vertical}
+  .pole input:focus,.pole textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(43,91,215,.16)}
+  .blad{display:none;font-size:.85rem;color:var(--err);font-weight:600}
+  .pole.zle input,.pole.zle textarea{border-color:var(--err)}
+  .pole.zle .blad{display:block}
+  .zgoda{display:flex;gap:12px;align-items:flex-start;margin:4px 0 22px}
+  .zgoda input{width:22px;height:22px;min-height:0;margin-top:2px;accent-color:var(--accent);flex:none;cursor:pointer}
+  .zgoda label{font-size:.88rem;color:var(--muted);cursor:pointer}
+  .zgoda.zle label{color:var(--err);font-weight:600}
+  .sukces{display:none;padding:26px;border-radius:var(--radius-wew);background:var(--accent-soft);border:1px solid var(--line)}
+  .sukces p:first-child{font-weight:750;font-size:1.1rem}
+  .sukces p{margin-bottom:6px}
+  .sukces .notka{color:var(--muted);font-size:.88rem}
+
+  /* finał: sprzedażowy pas ciemny */
+  .final{
+    background:
+      radial-gradient(720px 380px at 82% 0%,rgba(43,91,215,.34),transparent 66%),
+      var(--dark);
+    color:#fff;padding:112px 0;
+  }
+  .final-siatka{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:48px;align-items:center}
+  .final h2{color:#fff;margin-bottom:16px}
+  .final-lead{color:var(--dark-text);font-size:1.1rem;max-width:52ch}
+  .final-akcja{display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+  .przycisk-bialy{
+    background:#fff;color:var(--dark);box-shadow:0 14px 34px rgba(5,12,30,.45);
+  }
+  .przycisk-bialy:hover{background:#e9eef9}
+  .final-mikro{font-size:.9rem;color:var(--dark-text)}
+
+  /* stopka */
+  footer.stopka{padding:36px 0;border-top:1px solid var(--line)}
+  .stopka .kontener{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.86rem;color:var(--muted)}
+
+  /* ujawnianie przy przewijaniu */
+  .ujawnij{opacity:0;transform:translateY(22px);transition:opacity 340ms cubic-bezier(.22,.61,.21,1),transform 340ms cubic-bezier(.22,.61,.21,1)}
+  .ujawnij.widoczny{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){
+    .ujawnij{opacity:1;transform:none}
+  }
+
+  /* ===== tablet ===== */
+  @media (max-width:1024px){
+    nav.glowna{display:none}
+    .hamburger{display:block}
+    .menu-mobilne{
+      display:flex;flex-direction:column;
+      opacity:0;pointer-events:none;transition:opacity 240ms ease;
+    }
+    .menu-mobilne.otwarte{opacity:1;pointer-events:auto}
+    .menu-mobilne a{
+      display:block;padding:16px 8px;font-size:1.35rem;font-weight:700;color:var(--ink);
+      text-decoration:none;border-bottom:1px solid var(--line);
+      opacity:0;transform:translateY(14px);
+      transition:opacity 300ms ease,transform 300ms cubic-bezier(.22,.61,.21,1);
+    }
+    .menu-mobilne.otwarte a{opacity:1;transform:none}
+    .menu-mobilne.otwarte a:nth-child(1){transition-delay:60ms}
+    .menu-mobilne.otwarte a:nth-child(2){transition-delay:110ms}
+    .menu-mobilne.otwarte a:nth-child(3){transition-delay:160ms}
+    .menu-mobilne.otwarte a:nth-child(4){transition-delay:210ms}
+    .menu-mobilne.otwarte a:nth-child(5){transition-delay:260ms}
+    .hero-siatka{grid-template-columns:1fr;gap:48px;padding-top:64px;padding-bottom:80px}
+    .bento{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .komorka-f{grid-column:span 2;grid-row:auto}
+    .komorka-d{grid-row:auto}
+    .kroki{grid-template-columns:1fr;gap:8px}
+    .kroki::before{display:none}
+    .krok{display:grid;grid-template-columns:68px 1fr;column-gap:22px;padding:20px 0}
+    .krok-numer{margin-bottom:0}
+    .opinie{grid-template-columns:1fr;gap:16px}
+    .opinia:nth-child(2){transform:none}
+    .kontakt-siatka,.final-siatka{grid-template-columns:1fr}
+    .sekcja{padding:80px 0}
+  }
+
+  /* ===== telefon ===== */
+  @media (max-width:640px){
+    body{font-size:16px}
+    .kontener{padding:0 18px}
+    .hero-siatka{padding-top:48px;padding-bottom:64px;gap:36px}
+    .hero-akcje .przycisk{width:100%}
+    .bento{grid-template-columns:1fr}
+    .komorka-f{grid-column:auto}
+    .komorka-f h3{font-size:1.3rem}
+    .karta-rezerwacji{padding:22px}
+    .krok{grid-template-columns:1fr;row-gap:6px}
+    .krok-numer{margin-bottom:8px}
+    .dane-karta,.formularz-karta{padding:26px}
+    .final{padding:80px 0}
+    .final-akcja .przycisk{width:100%}
+    .pasek{height:62px}
+    .logo-nazwa small{display:none}
+    .pasek-pokazu .pelny-tekst{display:none}
+    .pasek-pokazu .krotki-tekst{display:inline}
+    .pasek-pokazu .kontener{min-height:40px}
+    .pasek .przycisk-maly{white-space:nowrap}
+  @media (max-width:480px){
+    .pasek .przycisk-maly{display:none}
+  }
+  }
+</style>
+</head>
+<body>
+
+<!-- pasek pokazu -->
+<div class="pasek-pokazu">
+  <div class="kontener">
+    <span class="znacznik-pokazu">Pokaz</span>
+    <span class="pelny-tekst">Przykładowa strona gabinetu stomatologicznego, wszystkie dane są przykładowe.</span>
+    <span class="krotki-tekst">Dane przykładowe.</span>
+    <a href="#dla-firmy">Chcesz taką stronę?</a>
+  </div>
+</div>
+
+<!-- nagłówek -->
+<header>
+  <div class="kontener pasek">
+    <a class="logo" href="#start" aria-label="Twój Gabinet, strona główna">
+      <span class="logo-znak" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 4.4c-1.8-1.5-4.4-1.7-6-.4-1.6 1.3-2 3.7-1.1 6.4.6 2.1.7 4.3 1 6.6.2 1.4.6 2.5 1.7 2.5 1.2 0 1.3-1.7 1.5-3.4.2-1.3.7-2.2 1.4-2.2s1.2.9 1.4 2.2c.2 1.7.3 3.4 1.5 3.4 1.1 0 1.5-1.1 1.7-2.5.3-2.3.4-4.5 1-6.6.9-2.7.5-5.1-1.1-6.4-.6-.5-1-.3-1.5-.6-.4-.3-.8-.6-1.6 0z" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span class="logo-nazwa">Twój Gabinet<small>stomatologia demonstracyjna</small></span>
+    </a>
+    <nav class="glowna" aria-label="Menu główne">
+      <a href="#uslugi">Usługi</a>
+      <a href="#pierwsza-wizyta">Pierwsza wizyta</a>
+      <a href="#opinie">Opinie</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <a class="przycisk przycisk-glowny przycisk-maly" href="#kontakt">Umów wizytę</a>
+    <button class="hamburger" aria-label="Otwórz menu" aria-expanded="false" aria-controls="menu-mobilne">
+      <span></span><span></span>
+    </button>
+  </div>
+  <nav class="menu-mobilne" id="menu-mobilne" aria-label="Menu mobilne">
+    <a href="#uslugi">Usługi</a>
+    <a href="#pierwsza-wizyta">Pierwsza wizyta</a>
+    <a href="#opinie">Opinie</a>
+    <a href="#faq">FAQ</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="start">
+  <div class="hero-tlo" aria-hidden="true"></div>
+  <div class="kontener hero-siatka">
+    <div>
+      <h1>Spokojna stomatologia</h1>
+      <p class="hero-lead">Nowoczesny gabinet od profilaktyki po implanty, w Twoim mieście. Zapisz się online w minutę.</p>
+      <div class="hero-akcje">
+        <a class="przycisk przycisk-glowny" href="#kontakt">
+          Umów wizytę
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13m0 0-5.5-5.5M18 12l-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a class="przycisk przycisk-drugi" href="#uslugi">Zobacz usługi</a>
+      </div>
+    </div>
+
+    <!-- interaktywna karta rezerwacji -->
+    <div class="karta-otoczka">
+      <div class="karta-rezerwacji">
+        <p class="krok-naglowek">Umów wizytę w 60 sekund</p>
+        <p class="krok-opis">Wybierz termin i usługę, tak działa rezerwacja online.</p>
+
+        <div class="grupa-chipow">
+          <span class="etykieta-grupy" id="etyk-dzien">Dzień</span>
+          <div class="chipy" role="group" aria-labelledby="etyk-dzien">
+            <button type="button" class="chip" data-dzien="wt 22.09" aria-pressed="false">wt 22.09</button>
+            <button type="button" class="chip" data-dzien="śr 23.09" aria-pressed="false">śr 23.09</button>
+            <button type="button" class="chip" data-dzien="cz 24.09" aria-pressed="false">cz 24.09</button>
+          </div>
+        </div>
+
+        <div class="grupa-chipow">
+          <span class="etykieta-grupy" id="etyk-godzina">Godzina</span>
+          <div class="chipy" role="group" aria-labelledby="etyk-godzina">
+            <button type="button" class="chip" data-godzina="9:00" aria-pressed="false">9:00</button>
+            <button type="button" class="chip" data-godzina="11:30" aria-pressed="false">11:30</button>
+            <button type="button" class="chip" data-godzina="15:00" aria-pressed="false">15:00</button>
+          </div>
+        </div>
+
+        <div class="grupa-chipow">
+          <span class="etykieta-grupy" id="etyk-usluga">Usługa</span>
+          <div class="chipy" role="group" aria-labelledby="etyk-usluga">
+            <button type="button" class="chip" data-usluga="Konsultacja" aria-pressed="false">Konsultacja</button>
+            <button type="button" class="chip" data-usluga="Higienizacja" aria-pressed="false">Higienizacja</button>
+            <button type="button" class="chip" data-usluga="Wybielanie" aria-pressed="false">Wybielanie</button>
+          </div>
+        </div>
+
+        <button type="button" class="przycisk przycisk-glowny" id="rezerwuj" aria-disabled="true" aria-describedby="podpowiedz-rezerwacji">Zarezerwuj termin</button>
+        <p class="karta-podpowiedz" id="podpowiedz-rezerwacji">Wybierz dzień, godzinę i usługę, żeby zarezerwować.</p>
+
+        <div class="potwierdzenie" id="potwierdzenie" role="status">
+          <p><span class="ikona-ok" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="m5 13 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Termin zarezerwowany (pokaz)</p>
+          <p id="potwierdzenie-szczegoly"></p>
+          <p class="notka">W Twojej stronie ten krok wyśle zgłoszenie prosto do rejestracji gabinetu.</p>
+        </div>
+
+        <p class="karta-notka">Podobny panel rezerwacji może działać na stronie Twojego gabinetu.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== USŁUGI ===== -->
+<section class="sekcja" id="uslugi">
+  <div class="kontener">
+    <div class="sekcja-naglowek ujawnij">
+      <h2>Kompleksowa opieka stomatologiczna</h2>
+      <p>Jeden gabinet, pełen zakres leczenia: od przeglądu co pół roku po skomplikowane uzupełnienia.</p>
+    </div>
+    <div class="bento">
+      <article class="komorka komorka-f ujawnij">
+        <span class="numerek">usługa wyróżniona</span>
+        <span class="ikona-uslugi" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 3.6c-1.9-1.5-4.6-1.8-6.2-.4-1.7 1.4-2.1 3.9-1.2 6.6.6 2.2.8 4.5 1.1 6.8.2 1.5.7 2.6 1.8 2.6 1.2 0 1.3-1.8 1.5-3.5.2-1.4.7-2.3 1.5-2.3s1.3.9 1.5 2.3c.2 1.7.3 3.5 1.5 3.5 1.1 0 1.6-1.1 1.8-2.6.3-2.3.5-4.6 1.1-6.8.9-2.7.5-5.2-1.2-6.6-.7-.5-1.1-.3-1.6-.7-.5-.3-.9-.6-1.6.1z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.2 8.6h7.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </span>
+        <h3>Implanty i chirurgia</h3>
+        <p>Brakujące zęby uzupełniamy implantami, które wyglądają i działają jak własne. Plan leczenia przygotowujemy na tomografii.</p>
+      </article>
+
+      <article class="komorka ujawnij">
+        <span class="ikona-uslugi" aria-hidden="true">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M12 4.5c-1.8-1.4-4.4-1.6-6-.3-1.6 1.3-2 3.7-1.2 6.3.6 2 .8 4.2 1.1 6.3.2 1.4.7 2.5 1.7 2.5 1.1 0 1.2-1.7 1.4-3.3.2-1.3.7-2.1 1.4-2.1s1.2.8 1.4 2.1c.2 1.6.3 3.3 1.4 3.3 1 0 1.5-1.1 1.7-2.5.3-2.1.5-4.3 1.1-6.3.8-2.6.4-5-1.2-6.3-1.6-1.3-4.2-1.1-6 .3z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <h3>Stomatologia zachowawcza</h3>
+        <p>Leczenie próchnicy i odbudowa zębów metodami minimalnie inwazyjnymi.</p>
+      </article>
+
+      <article class="komorka ujawnij">
+        <span class="ikona-uslugi" aria-hidden="true">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M12 4.5c-1.8-1.4-4.4-1.6-6-.3-1.6 1.3-2 3.7-1.2 6.3.6 2 .8 4.2 1.1 6.3.2 1.4.7 2.5 1.7 2.5 1.1 0 1.2-1.7 1.4-3.3.2-1.3.7-2.1 1.4-2.1s1.2.8 1.4 2.1c.2 1.6.3 3.3 1.4 3.3 1 0 1.5-1.1 1.7-2.5.3-2.1.5-4.3 1.1-6.3.8-2.6.4-5-1.2-6.3-1.6-1.3-4.2-1.1-6 .3z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v5m-2.5-2.5h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </span>
+        <h3>Endodoncja</h3>
+        <p>Leczenie kanałowe pod powiększeniem, z dokładną diagnostyką.</p>
+      </article>
+
+      <article class="komorka komorka-d ujawnij">
+        <span class="ikona-uslugi" aria-hidden="true">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M5 9.5C5 6.5 8.1 4 12 4s7 2.5 7 5.5c0 2.4-1.9 4.4-4.5 5.2l-.6 3.6c-.1.9-.9 1.7-1.9 1.7s-1.7-.8-1.9-1.7l-.6-3.6C6.9 13.9 5 11.9 5 9.5z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 8.5h.01M12 7.5h.01M15 8.5h.01" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        </span>
+        <h3>Ortodoncja</h3>
+        <p>Aparaty stałe i nakładkowe, które prostują zgryz w każdym wieku. Konsultacja z symulacją ustawienia zębów.</p>
+      </article>
+
+      <article class="komorka komorka-e ujawnij">
+        <span class="ikona-uslugi" aria-hidden="true">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M7 4.5c2 0 4 1 5 2.5 1-1.5 3-2.5 5-2.5 0 4-1.5 6.5-3 8-.8.8-1.2 1.7-1.4 2.9-.2 1.3-.7 2.1-1.6 2.1s-1.4-.8-1.6-2.1c-.2-1.2-.6-2.1-1.4-2.9C8.5 11 7 8.5 7 4.5z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 9v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </span>
+        <h3>Stomatologia dziecięca</h3>
+        <p>Bezstresowe wizyty adaptacyjne w formie zabawy, bez presji.</p>
+      </article>
+
+      <article class="komorka ujawnij">
+        <span class="ikona-uslugi" aria-hidden="true">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M5 8c-1 1-1.4 2.5-1 4 .3 1.2 1.1 2 2.1 2.4L7 20h10l.9-5.6c1-.4 1.8-1.2 2.1-2.4.4-1.5 0-3-1-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 8c1.2-1.2 3.1-1.2 4.3 0L12 10.5l2.7-2.5c1.2-1.2 3.1-1.2 4.3 0" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <h3>Protetyka</h3>
+        <p>Korony, mosty i protezy zaprojektowane cyfrowo, dopasowane do uśmiechu.</p>
+      </article>
+
+      <article class="komorka ujawnij">
+        <span class="ikona-uslugi" aria-hidden="true">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.7"/></svg>
+        </span>
+        <h3>Higienizacja</h3>
+        <p>Piaskowanie, skaling i fluoryzacja, czyli profilaktyka co pół roku.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PIERWSZA WIZYTA ===== -->
+<section class="sekcja" id="pierwsza-wizyta" style="background:var(--surface)">
+  <div class="kontener">
+    <div class="sekcja-naglowek ujawnij">
+      <h2>Pierwsza wizyta bez stresu</h2>
+      <p>Trzy kroki, po których wiesz dokładnie, co dalej dzieje się z Twoim uśmiechem.</p>
+    </div>
+    <div class="kroki">
+      <div class="krok ujawnij">
+        <div class="krok-numer" aria-hidden="true">01</div>
+        <h3>Zapisz się online</h3>
+        <p>Wybierz termin w panelu powyżej albo zadzwoń. Potwierdzenie dostaniesz od razu.</p>
+      </div>
+      <div class="krok ujawnij">
+        <div class="krok-numer" aria-hidden="true">02</div>
+        <h3>Poznaj plan leczenia</h3>
+        <p>Lekarz bada, tłumaczy opcje i przedstawia jasny kosztorys przed rozpoczęciem czegokolwiek.</p>
+      </div>
+      <div class="krok ujawnij">
+        <div class="krok-numer" aria-hidden="true">03</div>
+        <h3>Wróć na kontrolę</h3>
+        <p>Po leczeniu umawiamy przegląd, żeby efekt utrzymał się latami.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OPINIE ===== -->
+<section class="sekcja" id="opinie">
+  <div class="kontener">
+    <div class="sekcja-naglowek ujawnij">
+      <h2>Co mówią pacjenci</h2>
+      <p>Kilka głosów z poczekalni, żebyś wiedział, czego się spodziewać.</p>
+    </div>
+    <div class="opinie">
+      <figure class="opinia ujawnij">
+        <span class="cytat-znak" aria-hidden="true">„</span>
+        <blockquote>Umówiłam wizytę przez stronę w niedzielę wieczorem, a w poniedziałek rano już na niej byłam.</blockquote>
+        <footer><strong>Anna W.</strong> · pacjentka od 2024 r.</footer>
+      </figure>
+      <figure class="opinia ujawnij">
+        <span class="cytat-znak" aria-hidden="true">„</span>
+        <blockquote>W końcu gabinet, w którym wszystko wytłumaczono mi po ludzku, zanim cokolwiek zaczęto robić.</blockquote>
+        <footer><strong>Marek K.</strong></footer>
+      </figure>
+      <figure class="opinia ujawnij">
+        <span class="cytat-znak" aria-hidden="true">„</span>
+        <blockquote>Syn chodzi na wizyty bez płaczu. Po tych wszystkich gabinetach to mówi wszystko.</blockquote>
+        <footer><strong>Katarzyna P.</strong> · mama małego pacjenta</footer>
+      </figure>
+    </div>
+    <p class="opinie-notka">Opinie przykładowe, wypowiedzi ilustrujące sekcję strony gabinetu.</p>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="sekcja" id="faq" style="background:var(--surface)">
+  <div class="kontener">
+    <div class="sekcja-naglowek ujawnij">
+      <h2>Częste pytania</h2>
+      <p>Na te pytania pacjenci szukają odpowiedzi najczęściej, jeszcze przed pierwszą wizytą.</p>
+    </div>
+    <div class="faq">
+      <div class="faq-element">
+        <button class="faq-pytanie" aria-expanded="false" aria-controls="faq-o-1">
+          Czy wizyty są prywatne?
+          <span class="faq-strzalka" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </button>
+        <div class="faq-odpowiedz" id="faq-o-1"><div><p>Tak, to gabinet prywatny. Dla stałych pacjentów przygotowujemy plany leczenia z możliwością rozłożenia płatności na raty.</p></div></div>
+      </div>
+      <div class="faq-element">
+        <button class="faq-pytanie" aria-expanded="false" aria-controls="faq-o-2">
+          Czy leczenie boli?
+          <span class="faq-strzalka" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </button>
+        <div class="faq-odpowiedz" id="faq-o-2"><div><p>Znieczulamy przed każdym zabiegiem, a osobom zestresowanym proponujemy sedację. Komfort pacjenta jest u nas podstawą.</p></div></div>
+      </div>
+      <div class="faq-element">
+        <button class="faq-pytanie" aria-expanded="false" aria-controls="faq-o-3">
+          Jak często robić przegląd?
+          <span class="faq-strzalka" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </button>
+        <div class="faq-odpowiedz" id="faq-o-3"><div><p>Co pół roku. Regularna profilaktyka jest po prostu tańsza niż leczenie powikłań, dlatego o terminach przypominamy SMS-em.</p></div></div>
+      </div>
+      <div class="faq-element">
+        <button class="faq-pytanie" aria-expanded="false" aria-controls="faq-o-4">
+          Czy przyjmujecie dzieci?
+          <span class="faq-strzalka" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </button>
+        <div class="faq-odpowiedz" id="faq-o-4"><div><p>Tak. Pierwsza wizyta dziecka to spotkanie adaptacyjne: poznanie gabinetu, fotela i lekarza w formie zabawy, bez żadnego leczenia.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== KONTAKT ===== -->
+<section class="sekcja" id="kontakt">
+  <div class="kontener">
+    <div class="sekcja-naglowek ujawnij">
+      <h2>Kontakt i rejestracja</h2>
+      <p>Napisz, zadzwoń albo zostaw numer, oddzwonimy w ciągu 24 godzin.</p>
+    </div>
+    <div class="kontakt-siatka">
+      <div class="dane-karta ujawnij">
+        <p>Twój Gabinet</p>
+        <div class="dane-pozycja">
+          <span class="ikona-uslugi" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 21s-6.5-5.4-6.5-10a6.5 6.5 0 1 1 13 0c0 4.6-6.5 10-6.5 10z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="11" r="2.4" stroke="currentColor" stroke-width="1.7"/></svg></span>
+          <p><strong>Adres</strong>ul. Przykładowa 12, 00-001 Twoje Miasto</p>
+        </div>
+        <div class="dane-pozycja">
+          <span class="ikona-uslugi" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6.8 3.8 9 6c.5.5.5 1.3.1 1.9l-1 1.4a13.6 13.6 0 0 0 6.6 6.6l1.4-1c.6-.4 1.4-.4 1.9.1l2.2 2.2c.6.6.6 1.6-.1 2.1l-1.6 1.3c-.9.7-2.1.9-3.2.5C10.6 19.5 4.5 13.4 2.9 7.7c-.4-1.1-.2-2.3.5-3.2L4.7 3c.5-.7 1.5-.7 2.1-.1z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
+          <p><strong>Rejestracja</strong><a href="tel:+48000000000">+48 000 000 000</a></p>
+        </div>
+        <div class="dane-pozycja">
+          <span class="ikona-uslugi" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <p><strong>Godziny otwarcia</strong>pon. do pt. 8:00–20:00<br>sob. 9:00–14:00</p>
+        </div>
+        <p style="font-size:.85rem;color:var(--dark-text);margin-top:auto">Dane kontaktowe przykładowe. Na Twojej stronie tu będą prawdziwe dane Twojego gabinetu.</p>
+      </div>
+
+      <div class="formularz-karta ujawnij">
+        <form id="formularz-kontakt" novalidate>
+          <div class="pole" id="pole-imie">
+            <label for="imie">Imię i nazwisko</label>
+            <input type="text" id="imie" name="imie" autocomplete="name" required>
+            <span class="blad" id="blad-imie">Podaj imię i nazwisko (min. 2 znaki).</span>
+          </div>
+          <div class="pole" id="pole-telefon">
+            <label for="telefon">Telefon</label>
+            <input type="tel" id="telefon" name="telefon" autocomplete="tel" inputmode="tel" required>
+            <span class="blad" id="blad-telefon">Podaj numer telefonu (min. 9 cyfr).</span>
+          </div>
+          <div class="pole" id="pole-wiadomosc">
+            <label for="wiadomosc">Wiadomość (opcjonalnie)</label>
+            <textarea id="wiadomosc" name="wiadomosc" placeholder=" np. chciałbym umówić konsultację w sprawie implantu"></textarea>
+          </div>
+          <div class="zgoda" id="zgoda-rama">
+            <input type="checkbox" id="zgoda" name="zgoda" required>
+            <label for="zgoda">Wyrażam zgodę na kontakt telefoniczny w sprawie wizyty.</label>
+          </div>
+          <button type="submit" class="przycisk przycisk-glowny" style="width:100%">
+            Wyślij zgłoszenie
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13m0 0-5.5-5.5M18 12l-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </form>
+        <div class="sukces" id="sukces" role="status">
+          <p>Zgłoszenie wysłane (pokaz)</p>
+          <p>W gotowej stronie Twojego gabinetu ta wiadomość trafi prosto do rejestracji.</p>
+          <p class="notka">To formularz demonstracyjny, dane nie zosta nigdzie wysłane.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAŁ: OFERTA ===== -->
+<section class="final" id="dla-firmy">
+  <div class="kontener final-siatka">
+    <div class="ujawnij">
+      <h2>Podoba Ci się ta strona?</h2>
+      <p class="final-lead">To pokaz. Twoja strona może wyglądać tak samo, z Twoimi usługami, zdjęciami i danymi: projekt, treści i uruchomienie w 7 dni.</p>
+    </div>
+    <div class="final-akcja ujawnij">
+      <a class="przycisk przycisk-bialy" href="mailto:vasilyanaptyp@gmail.com?subject=Strona%20dla%20gabinetu%20stomatologicznego%20-%20wycena">
+        Odpowiedz na e-mail i zamów wycenę
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13m0 0-5.5-5.5M18 12l-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <p class="final-mikro">Odpowiedź w 24 h · wycena bez zobowiązań</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="stopka">
+  <div class="kontener">
+    <span>Twój Gabinet · strona pokazowa</span>
+    <span>Wszystkie dane przykładowe · © 2026</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ujawnianie przy przewijaniu */
+  var ruch = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var doUjawnienia = document.querySelectorAll(".ujawnij");
+  if (ruch && "IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function(wpisy){
+      wpisy.forEach(function(w){
+        if (w.isIntersecting) {
+          w.target.classList.add("widoczny");
+          io.unobserve(w.target);
+        }
+      });
+    }, {rootMargin:"0px 0px -8% 0px", threshold:.12});
+    doUjawnienia.forEach(function(el){ io.observe(el); });
+  } else {
+    doUjawnienia.forEach(function(el){ el.classList.add("widoczny"); });
+  }
+
+  /* menu mobilne */
+  var burger = document.querySelector(".hamburger");
+  var menu = document.getElementById("menu-mobilne");
+  function zamknijMenu(){
+    burger.setAttribute("aria-expanded","false");
+    burger.setAttribute("aria-label","Otwórz menu");
+    menu.classList.remove("otwarte");
+    document.body.style.overflow = "";
+  }
+  if (burger && menu) {
+    burger.addEventListener("click", function(){
+      var otwarte = burger.getAttribute("aria-expanded") === "true";
+      if (otwarte) { zamknijMenu(); }
+      else {
+        burger.setAttribute("aria-expanded","true");
+        burger.setAttribute("aria-label","Zamknij menu");
+        menu.classList.add("otwarte");
+        document.body.style.overflow = "hidden";
+      }
+    });
+    menu.querySelectorAll("a").forEach(function(a){
+      a.addEventListener("click", zamknijMenu);
+    });
+    document.addEventListener("keydown", function(e){
+      if (e.key === "Escape") { zamknijMenu(); }
+    });
+  }
+
+  /* karta rezerwacji */
+  var wybor = {dzien:null, godzina:null, usluga:null};
+  var przyciskRezerwacji = document.getElementById("rezerwuj");
+  var potwierdzenie = document.getElementById("potwierdzenie");
+  var szczegoly = document.getElementById("potwierdzenie-szczegoly");
+  function odswiezPrzycisk(){
+    var gotowe = wybor.dzien && wybor.godzina && wybor.usluga;
+    przyciskRezerwacji.setAttribute("aria-disabled", gotowe ? "false" : "true");
+    var podpowiedz = document.getElementById("podpowiedz-rezerwacji");
+    var brakujace = [];
+    if (!wybor.dzien) { brakujace.push("dzień"); }
+    if (!wybor.godzina) { brakujace.push("godzinę"); }
+    if (!wybor.usluga) { brakujace.push("usługę"); }
+    podpowiedz.textContent = brakujace.length
+      ? "Wybierz jeszcze: " + brakujace.join(", ") + "."
+      : "Termin kompletny, możesz rezerwować.";
+  }
+  document.querySelectorAll(".chipy .chip").forEach(function(chip){
+    chip.addEventListener("click", function(){
+      var grupa = chip.parentElement;
+      grupa.querySelectorAll(".chip").forEach(function(c){ c.setAttribute("aria-pressed","false"); });
+      chip.setAttribute("aria-pressed","true");
+      if (chip.dataset.dzien) { wybor.dzien = chip.dataset.dzien; }
+      if (chip.dataset.godzina) { wybor.godzina = chip.dataset.godzina; }
+      if (chip.dataset.usluga) { wybor.usluga = chip.dataset.usluga; }
+      potwierdzenie.style.display = "none";
+      odswiezPrzycisk();
+    });
+  });
+  przyciskRezerwacji.addEventListener("click", function(){
+    if (przyciskRezerwacji.getAttribute("aria-disabled") === "true") { return; }
+    szczegoly.textContent = wybor.usluga + " · " + wybor.dzien + " · godz. " + wybor.godzina;
+    potwierdzenie.style.display = "block";
+  });
+  odswiezPrzycisk();
+
+  /* FAQ akordeon */
+  document.querySelectorAll(".faq-pytanie").forEach(function(przyc){
+    przyc.addEventListener("click", function(){
+      var otwarte = przyc.getAttribute("aria-expanded") === "true";
+      document.querySelectorAll(".faq-element.otwarty").forEach(function(el){
+        el.classList.remove("otwarty");
+        el.querySelector(".faq-pytanie").setAttribute("aria-expanded","false");
+      });
+      if (!otwarte) {
+        przyc.setAttribute("aria-expanded","true");
+        przyc.closest(".faq-element").classList.add("otwarty");
+      }
+    });
+  });
+
+  /* formularz */
+  var formularz = document.getElementById("formularz-kontakt");
+  var sukces = document.getElementById("sukces");
+  function oznaczBlad(rama, stan){
+    document.getElementById(rama).classList.toggle("zle", stan);
+  }
+  formularz.addEventListener("submit", function(e){
+    e.preventDefault();
+    var imie = document.getElementById("imie");
+    var telefon = document.getElementById("telefon");
+    var zgoda = document.getElementById("zgoda");
+    var okImie = imie.value.trim().length >= 2;
+    var okTelefon = (telefon.value.replace(/[^0-9]/g,"").length >= 9);
+    var okZgoda = zgoda.checked;
+    oznaczBlad("pole-imie", !okImie);
+    oznaczBlad("pole-telefon", !okTelefon);
+    document.getElementById("zgoda-rama").classList.toggle("zle", !okZgoda);
+    if (okImie && okTelefon && okZgoda) {
+      formularz.style.display = "none";
+      sukces.style.display = "block";
+    }
+  });
+  ["imie","telefon"].forEach(function(id){
+    document.getElementById(id).addEventListener("input", function(){
+      oznaczBlad("pole-" + id, false);
+    });
+  });
+  document.getElementById("zgoda").addEventListener("change", function(){
+    document.getElementById("zgoda-rama").classList.toggle("zle", false);
+  });
+})();
+</script>
+</body>
+</html>
